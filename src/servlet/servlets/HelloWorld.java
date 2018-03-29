@@ -16,6 +16,7 @@ public class HelloWorld implements Servlet {
     System.out.println("destroy()");
   }
 
+  // 서블릿 설정정보
   @Override
   public ServletConfig getServletConfig() {
     System.out.println("getServletConfig()");
