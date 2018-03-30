@@ -19,3 +19,6 @@
   - 서버에서 받은 레코드는 ResultSet 객체에 보관된다.
   
 5. 생성한 자원은 반드시 해제 하자 finally에서
+
+6.HttpServlet
+  - 다른 서블릿과 다르게 service()대신 doGet(), doPost()를 재정의한다. 
