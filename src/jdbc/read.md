@@ -73,3 +73,5 @@
   - 서블릿 실행 전후에 어떤 작업을 하고자 할때 사용.
   - 각 서블릿 마다 같은 코드가 반복되 있다면 서블릿 필터를 이용하자. ex) setCharacterEncoding() 같은거.
   - javax.servlet.Filter 인터페이스를 구현해야 함.
+  - javax.servlet.Filter 인터페이스 구현
+  - 사전작업 --> nextFilter.doFilter() --> 사후 작업
