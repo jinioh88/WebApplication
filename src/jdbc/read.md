@@ -20,5 +20,16 @@
   
 5. 생성한 자원은 반드시 해제 하자 finally에서
 
-6.HttpServlet
+6. HttpServlet
   - 다른 서블릿과 다르게 service()대신 doGet(), doPost()를 재정의한다. 
+  - 클라이언트 요청 들어면 --> HttpServlet의 service() 호출 됨. 
+  - service()는 클라이언트 요청 방식에 따라 doGet(), doPost(), doPut() 드으이 메서드 호출
+  - HttpServlet 상속 시 service() 직접구현 보단, doXXX를 오버라이딩 한다. 
+  - doPost() : 
+  
+7. <form> 태그
+  - action : 실행할 서블릿의 URL주소.
+  - method : 서버에 요청하는 방식. 기본은 get.
+  
+8. 클라이언트로 부터 톰켓이 /member/add 요청 받으면, MemberAddServlet의 service()메서드 호출
+   service()에서는 요청방식에 따라 doGet(), doPost() 호출해줌 .

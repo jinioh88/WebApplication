@@ -40,7 +40,7 @@ public class MemberListServlet extends GenericServlet {
 			PrintWriter out = response.getWriter();
 			out.println("<html><head><title>회원목록</title></head>");
 			out.println("<body><h1>회원목록</h1>");
-			out.println("<p><a href='add'>신규 회원</a></p>");
+			out.println("<p><a href='add'>신규 회원</a></p>");  // 링크 URL이 add
 			while(rs.next()) {
 				out.println(
 					rs.getInt("MNO") + "," +
