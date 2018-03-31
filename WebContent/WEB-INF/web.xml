@@ -4,11 +4,6 @@
   
   <!-- 서블릿 선언 -->
   <servlet>
-  	<servlet-name>Hello</servlet-name>
-  	<servlet-class>servlet.servlets.HelloWorld</servlet-class>
-  </servlet>
-  
-  <servlet>
     <servlet-name>MemberUpdateServlet</servlet-name>
     <servlet-class>jdbc.spms.servlets.MemberUpdateServlet</servlet-class>
     <init-param>
@@ -24,25 +19,15 @@
       <param-value>study</param-value>
     </init-param>
     <init-param>
-      <param-name>username</param-name>
-      <param-value>study</param-value>
-    </init-param>
-    <init-param>
       <param-name>password</param-name>
       <param-value>study</param-value>
     </init-param>
   </servlet>
   
-  
   <!-- 서블릿을 URL과 연결 -->
   <servlet-mapping>
-    <servlet-name>Hello</servlet-name>
-    <url-pattern>/Hello</url-pattern>
-  </servlet-mapping>
-
-   <servlet-mapping>
     <servlet-name>MemberUpdateServlet</servlet-name>
-    <url-pattern>//member/update</url-pattern>
+    <url-pattern>/member/update</url-pattern>
   </servlet-mapping> 
  
   <welcome-file-list>
