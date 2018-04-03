@@ -51,6 +51,9 @@ public class MemberUpdateServlet extends HttpServlet {
 				" value='" + rs.getString("EMAIL")  + "'><br>");
 			out.println("가입일: " + rs.getDate("CRE_DATE") + "<br>");
 			out.println("<input type='submit' value='저장'>");
+			out.println("<input type='button' value='삭제' "
+          + "onclick='location.href=\"delete?no=" + 
+          request.getParameter("no") + "\";'>");
 			out.println("<input type='button' value='취소'" + 
 				" onclick='location.href=\"list\"'>");
 			out.println("</form>");
