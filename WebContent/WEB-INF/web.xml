@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>WebProgramming</display-name>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  id="WebApp_ID" version="3.0">
+  <display-name>web05</display-name>
+  
+  <!-- 컨텍스트 초기화 파라미터 -->
   <context-param>
     <param-name>driver</param-name>
     <param-value>com.mysql.jdbc.Driver</param-value>
@@ -19,20 +24,17 @@
     <param-value>study</param-value>
   </context-param>
   
-  <servlet>
-    <servlet-name>AppInitServlet</servlet-name>
-    <servlet-class>jdbc.spms.servlets.AppInitServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
- 
+  <!-- 필터 선언 -->
+  
+  <!-- 필터 URL 매핑 -->
+    
+  <!-- 서블릿 선언 -->
+
+  <!-- 서블릿을 URL과 연결 -->
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-
 </web-app>

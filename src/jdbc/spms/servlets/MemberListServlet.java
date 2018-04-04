@@ -1,8 +1,6 @@
 package jdbc.spms.servlets;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jdbc.spms.dao.MemberDao;
-import mvc.spms.vo.Member;
 
-
-
-// ServletContext에 보관된 Connection 객체 사용  
+// ServletContext에 보관된 MemberDao 사용하기  
 @WebServlet("/member/list")
 public class MemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,18 +21,13 @@ public class MemberListServlet extends HttpServlet {
 	public void doGet(
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		try {
 			ServletContext sc = this.getServletContext();
-			Connection conn = (Connection)sc.getAttribute("conn");
-			
-			MemberDao memberDao = new MemberDao();
-			memberDao.setConnection(conn);
-			
+			MemberDao memberDao = (MemberDao)sc.getAttribute("memberDao");
+
 			request.setAttribute("members", memberDao.selectList());
 			
 			response.setContentType("text/html; charset=UTF-8");
-			// JSP로 출력을 위임한다.
 			RequestDispatcher rd = request.getRequestDispatcher(
 					"/member/MemberList.jsp");
 			rd.include(request, response);
@@ -47,8 +37,6 @@ public class MemberListServlet extends HttpServlet {
 			request.setAttribute("error", e);
 			RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
 			rd.forward(request, response);
-			
 		}
-
 	}
 }
