@@ -7,16 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import mvc.spms.util.DBConnectionPool;
+import org.apache.tomcat.jdbc.pool.DataSource;
+
 import mvc.spms.vo.Member;
 
 public class MemberDao {
 
-  DBConnectionPool connPool;
-  
-  public void setDbConnetionPool(DBConnectionPool connPool) {
-    this.connPool = connPool;
-  }
+  DataSource ds;
   
   public List<Member> selectList() throws Exception {
     Connection connection = null;
@@ -24,8 +21,7 @@ public class MemberDao {
     ResultSet rs = null;
 
     try {
-      connection = connPool.getConnection();
-      stmt = connection.createStatement();
+      connection = ds.getConnection();
       rs = stmt.executeQuery(
           "SELECT MNO,MNAME,EMAIL,CRE_DATE" + 
               " FROM MEMBERS" +
@@ -49,7 +45,7 @@ public class MemberDao {
     } finally {
       try {if (rs != null) rs.close();} catch(Exception e) {}
       try {if (stmt != null) stmt.close();} catch(Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
 
@@ -57,7 +53,7 @@ public class MemberDao {
     PreparedStatement stmt = null;
     Connection connection = null;
     try {
-      connection = connPool.getConnection();
+      connection = ds.getConnection();
       stmt = connection.prepareStatement(
           "INSERT INTO MEMBERS(EMAIL,PWD,MNAME,CRE_DATE,MOD_DATE)"
               + " VALUES (?,?,?,NOW(),NOW())");
@@ -71,7 +67,7 @@ public class MemberDao {
 
     } finally {
       try {if (stmt != null) stmt.close();} catch(Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
 
@@ -80,7 +76,7 @@ public class MemberDao {
     Connection connection = null;
 
     try {
-      connection = connPool.getConnection();
+      connection = ds.getConnection();
       stmt = connection.createStatement();
       return stmt.executeUpdate(
           "DELETE FROM MEMBERS WHERE MNO=" + no);
@@ -90,7 +86,7 @@ public class MemberDao {
 
     } finally {
       try {if (stmt != null) stmt.close();} catch(Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
 
@@ -100,7 +96,7 @@ public class MemberDao {
     Connection connection = null;
 
     try {
-      connection = connPool.getConnection();
+      connection = ds.getConnection();
       stmt = connection.createStatement();
       rs = stmt.executeQuery(
           "SELECT MNO,EMAIL,MNAME,CRE_DATE FROM MEMBERS" + 
@@ -121,7 +117,7 @@ public class MemberDao {
     } finally {
       try {if (rs != null) rs.close();} catch(Exception e) {}
       try {if (stmt != null) stmt.close();} catch(Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
 
@@ -129,7 +125,7 @@ public class MemberDao {
     PreparedStatement stmt = null;
     Connection connection = null;
     try {
-      connection = connPool.getConnection();
+      connection = ds.getConnection();
       stmt = connection.prepareStatement(
           "UPDATE MEMBERS SET EMAIL=?,MNAME=?,MOD_DATE=now()"
               + " WHERE MNO=?");
@@ -143,7 +139,7 @@ public class MemberDao {
 
     } finally {
       try {if (stmt != null) stmt.close();} catch(Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
   
@@ -153,7 +149,7 @@ public class MemberDao {
     Connection connection = null;
 
     try {
-      connection = connPool.getConnection();
+      connection = ds.getConnection();
       stmt = connection.prepareStatement(
           "SELECT MNAME,EMAIL FROM MEMBERS"
               + " WHERE EMAIL=? AND PWD=?");
@@ -173,7 +169,7 @@ public class MemberDao {
     } finally {
       try {if (rs != null) rs.close();} catch (Exception e) {}
       try {if (stmt != null) stmt.close();} catch (Exception e) {}
-      if (connection != null) connPool.returnConnection(connection);
+      try {if (connection != null) connection.close();} catch(Exception e) {}
     }
   }
 

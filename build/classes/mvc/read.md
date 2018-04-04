@@ -83,3 +83,8 @@
   
 12. DB 커넥션 풀
   - 
+  
+13. DataSource
+  - DriverManager 대체품.
+  - 서버에서 관리해 데이터베이스 변경되도 어플리케이션에서 바꿀 필요 없다. 
+  - Connection과 Statement 객체를 풀링할 수 있고, 분산 트렉잭션이 가능하다.
