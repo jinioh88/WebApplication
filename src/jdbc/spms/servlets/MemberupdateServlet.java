@@ -1,12 +1,9 @@
 package jdbc.spms.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -16,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdbc.spms.dao.MemberDao;
 import mvc.spms.vo.Member;
 
 @WebServlet("/member/update")
@@ -25,28 +23,18 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doGet(
 			HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
+		
 		try {
 		  ServletContext sc = this.getServletContext();
-			conn = (Connection)sc.getAttribute("conn");
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(
-				"SELECT MNO,EMAIL,MNAME,CRE_DATE FROM MEMBERS" + 
-				" WHERE MNO=" + request.getParameter("no"));	
-			if (rs.next()) {
-        request.setAttribute("member", 
-          new Member()
-            .setNo(rs.getInt("MNO"))
-            .setEmail(rs.getString("EMAIL"))
-            .setName(rs.getString("MNAME"))
-            .setCreatedDate(rs.getDate("CRE_DATE")));
-        
-      } else {
-        throw new Exception("해당 번호의 회원을 찾을 수 없습니다.");
-      }
-			RequestDispatcher rd = request.getRequestDispatcher("/member/MemberUpdateForm.jsp");
+			Connection conn = (Connection)sc.getAttribute("conn");
+			
+			MemberDao memberDao = new MemberDao();
+			memberDao.setConnection(conn);
+      
+			Member member = memberDao.selectOne(Integer.parseInt(request.getParameter("no")));
+			request.setAttribute("member", member);
+			
+      RequestDispatcher rd = request.getRequestDispatcher("/member/MemberUpdateForm.jsp");
 			rd.forward(request, response);
 			
 		} catch (Exception e) {
@@ -54,11 +42,7 @@ public class MemberUpdateServlet extends HttpServlet {
       request.setAttribute("error", e);
       RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
 			
-		} finally {
-			try {if (rs != null) rs.close();} catch(Exception e) {}
-			try {if (stmt != null) stmt.close();} catch(Exception e) {}
-			//try {if (conn != null) conn.close();} catch(Exception e) {}
-		}
+		} 
 	}
 	
 	@Override
