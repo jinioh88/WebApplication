@@ -53,5 +53,21 @@
     3) sessionScope --> HttpSession
     4) applicationScope --> ServletContext
          위 순서대로 객체 찾음
-  
-  - 
+
+10. JSTL
+  - JSTL 사용 시 JSP 페이지에서 자바코드 완전제거 가능해짐.
+  - <c:out> : 출력문을 만듬
+      <c:out value="${null}"</c:out>
+  - <c:set> : 변수 생성하거나 기존 변수 값 덮어씀. 보관소에 저장됨. 
+      <c:set var ="username" value="oh" scope="page|request|session|application"/>
+  - <c:remove> : 보관소 값 제거 
+      <c:remove var="username" scope="..."/> // scope 기본 값은 page
+  - <c:if> : 
+      <c:if test="${10>15}" var="result">
+        10은 15보다 크다
+      </c:if>
+      ${result}
+  - <c:choose> : switch, case 등과 같은 기능. <c:when>과 같이 사용. 
+  - <c:forEach> : 반복적 작업시 사용. 
+  - <c:forTokens> : 문자열을 특정 구분자로 분리해 반복문 만듬
+  - <c:url> : url 만들때 사용. 
