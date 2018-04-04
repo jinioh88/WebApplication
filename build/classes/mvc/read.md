@@ -43,3 +43,15 @@
     - JSP 페이지 내부에서만 사용될 데이터를 공유할 때 사용.
   4) JspContext 보관소
     - JSP 페이지를 실행하는 동안 유지. 
+    
+9. EL 표기
+  - JSP에서 주로 보관소에 들어있는 값을 꺼낼 떄 사용함. 
+  - ${}(즉시적용), #{}(지연적용)사용해 값 표기. 
+  - 보관소별 값 꺼낸는 것
+    1) pageScope --> JspContext
+    2) requestScope --> ServletRequest
+    3) sessionScope --> HttpSession
+    4) applicationScope --> ServletContext
+         위 순서대로 객체 찾음
+  
+  - 
