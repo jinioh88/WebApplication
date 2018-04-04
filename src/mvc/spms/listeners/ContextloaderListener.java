@@ -1,6 +1,5 @@
 package mvc.spms.listeners;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 
 import javax.servlet.ServletContext;
@@ -10,25 +9,24 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import jdbc.spms.dao.MemberDao;
+import mvc.spms.util.DBConnectionPool;
 
 @WebListener
 public class ContextloaderListener implements ServletContextListener {
-  Connection conn;
+  DBConnectionPool connPool;
   
   @Override
   public void contextInitialized(ServletContextEvent event) {
     try {
       ServletContext sc = event.getServletContext();
-
-      Class.forName(sc.getInitParameter("driver"));
-      conn = DriverManager.getConnection(
+      connPool = new DBConnectionPool(
+          sc.getInitParameter("driver"),
           sc.getInitParameter("url"),
           sc.getInitParameter("username"),
           sc.getInitParameter("password"));
 
       MemberDao memberDao = new MemberDao();
-      memberDao.setConnection(conn);
-
+      memberDao.setDbConnetionPool(connPool);
       sc.setAttribute("memberDao", memberDao);
 
     } catch(Throwable e) {
@@ -39,7 +37,7 @@ public class ContextloaderListener implements ServletContextListener {
   @Override
   public void contextDestroyed(ServletContextEvent event) {
     try {
-      conn.close();
+      connPool.closeAll();
     } catch (Exception e) {}
   }
 }
